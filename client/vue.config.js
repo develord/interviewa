@@ -4,7 +4,10 @@ module.exports = {
       proxy: {
         '^/api/*': {
           target: serverHost,
-          changeOrigin: true
+          changeOrigin: true,
+          secure:false,
+          pathRewrite: {'^/api': '/api'},
+          logLevel: 'debug' 
         },
       }
     }
