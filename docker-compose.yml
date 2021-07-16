@@ -6,6 +6,8 @@ services:
         environment:
             - SERVER_PORT=${SERVER_PORT}
             - CHOKIDAR_USEPOLLING=true
+        expose:
+            - ${SERVER_PORT}
         ports:
             - ${SERVER_PORT}:${SERVER_PORT}
         volumes:
