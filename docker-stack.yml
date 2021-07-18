@@ -16,6 +16,7 @@ services:
       environment:
           - UPSTREAM_HTTP_ADDRESS=${VUE_APP_SERVER_PATH}
           - APP_PORT=${APP_PORT}
+          - CHOKIDAR_USEPOLLING=true
       expose:
           - 80
       ports:
