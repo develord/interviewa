@@ -1,21 +1,25 @@
-version: "3"
+version: "3.7"
 services:
     # Setup node container server marvel api#
     server:
-        build: ./server
+        build: 
+            context: ./server
+            args:
+                - NODE_ENV=development
+        command: npm start
         environment:
             - SERVER_PORT=${SERVER_PORT}
             - CHOKIDAR_USEPOLLING=true
+            - NODE_ENV=development
         expose:
             - ${SERVER_PORT}
         ports:
             - ${SERVER_PORT}:${SERVER_PORT}
-        volumes:
-            - ./server:/srv/app/server
-        command: yarn start
     ## Setup front container
     client:
-        build: ./client
+        build: 
+            context: ./client
+            target: 'develop-stage'
         environment:
             - APP_PORT=${APP_PORT}
             - VUE_APP_SERVER_PATH=${VUE_APP_SERVER_PATH}
@@ -29,4 +33,4 @@ services:
             - ./client/public:/srv/app/client/public
         links:
             - server
-        command: yarn serve
+        command: /bin/sh -c "yarn serve"

@@ -2,10 +2,12 @@
   "name": "marvel-server",
   "version": "1.0.0",
   "description": "marvel server api",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js",
+    "start": "node index.js",
+    "dev-docker": "../node_modules/nodemon/bin/nodemon.js --debug=5858",
+    "dev-host": "nodemon --debug=5858",
+    "start-watch": "nodemon index.js --inspect=0.0.0.0:9229",
     "lint": "eslint \"**/*.js\" --ignore-pattern node_modules/",
     "lint-fix": "eslint --fix \"**/*.js\" --ignore-pattern node_modules/"
   },
@@ -19,12 +21,12 @@
     "dotenv": "^6.1.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7",
     "eslint": "^5.16.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.17.2",
     "eslint-plugin-node": "^9.0.1",
     "eslint-plugin-promise": "^4.1.1",
-    "eslint-plugin-standard": "^4.0.0"
+    "eslint-plugin-standard": "^4.0.0",
+    "nodemon": "^2.0.4"
   }
 }

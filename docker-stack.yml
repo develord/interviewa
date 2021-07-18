@@ -1,0 +1,24 @@
+version: '3'
+# a stack-file version of this for running in Swarm services
+services:
+  server:
+    # reminder, don't use latest tag in production, use versions created by CI/CD
+    image: develord09/interview:latest
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    environment:
+      - NODE_ENV=production
+      - SERVER_PORT=${SERVER_PORT}
+    command: node index.js
+  client:
+      build: 
+          context: ./client
+      environment:
+          - UPSTREAM_HTTP_ADDRESS=${VUE_APP_SERVER_PATH}
+          - APP_PORT=${APP_PORT}
+      expose:
+          - 80
+      ports:
+          - 80:80
+      links:
+          - server
