@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /** Environement Configuration */
 const dotenv = require('dotenv')
 const path = '.env' // we have only one mode
