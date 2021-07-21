@@ -75,7 +75,7 @@ export default {
   }
 }
 </script>
-<style lang="scss">
+<style>
 :root {
   --bg-level-1: radial-gradient(circle, rgba(52,10,16,1) 0%, rgba(79,17,17,1) 45%, rgba(52,10,16,1) 100%);
   --darkred: rgb(52,10,16);

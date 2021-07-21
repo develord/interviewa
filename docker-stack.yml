@@ -3,23 +3,22 @@ version: '3'
 services:
   server:
     # reminder, don't use latest tag in production, use versions created by CI/CD
-    image: develord09/interview:latest
+    image: develord09/server:latest
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
+    restart: unless-stopped
     environment:
       - NODE_ENV=production
       - SERVER_PORT=${SERVER_PORT}
     command: node index.js
   client:
-      build: 
-          context: ./client
+      image: develord09/client:latest
       environment:
-          - UPSTREAM_HTTP_ADDRESS=${VUE_APP_SERVER_PATH}
-          - APP_PORT=${APP_PORT}
           - CHOKIDAR_USEPOLLING=true
+      restart: unless-stopped
       expose:
-          - 80
+          - ${APP_PORT_PROD}
       ports:
-          - 80:80
+          - ${APP_PORT_PROD}:${APP_PORT_PROD}
       links:
           - server

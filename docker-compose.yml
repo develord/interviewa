@@ -6,13 +6,18 @@ services:
             context: ./server
             args:
                 - NODE_ENV=development
-        command: npm start
+        command: npm run dev
         environment:
             - SERVER_PORT=${SERVER_PORT}
             - CHOKIDAR_USEPOLLING=true
             - NODE_ENV=development
         expose:
             - ${SERVER_PORT}
+        volumes:
+            - ./server:/opt/node_app/
+            - ./server/package.json:/opt/node_app/package.json
+            - ./server/package-lock.json:/opt/node_app/package-lock.json
+            - notused:/opt/node_app/node_modules
         ports:
             - ${SERVER_PORT}:${SERVER_PORT}
     ## Setup front container
@@ -29,8 +34,10 @@ services:
         ports:
             - ${APP_PORT}:${APP_PORT}
         volumes: 
-            - ./client/src:/srv/app/client/src
-            - ./client/public:/srv/app/client/public
+            - ./client/src:/app/src/
+            - /app/node_modules
         links:
             - server
-        command: /bin/sh -c "yarn serve"
+        command: yarn serve
+volumes:
+    notused:
